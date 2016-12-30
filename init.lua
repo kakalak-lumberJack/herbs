@@ -59,7 +59,7 @@ minetest.register_node("herbs:psychoactive_mushroom", {
     sunlight_propagates = true,
 	  walkable = false,
 	  buildable_to = true,
-    light_source = 4,
+    light_source = 3,
 	  groups = {snappy = 3, attached_node = 1},
 	  sounds = default.node_sound_leaves_defaults(),
 	  on_use = function(itemstack, user, pointed_thing)
@@ -75,15 +75,39 @@ minetest.register_node("herbs:psychoactive_mushroom", {
  --mushroom mapgen
 
  --local function register_mushroom("psychoactive_mushroom")
+
+--v6 mapgen
+local function register_mgv6_mushroom(name)
+	minetest.register_decoration({
+		deco_type = "simple",
+		place_on = {"default:dirt_with_grass"},
+		sidelen = 16,
+		noise_params = {
+			offset = -0.90,
+			scale = 0.004,
+			spread = {x = 100, y = 100, z = 100},
+			seed = 71330,
+			octaves = 3,
+			persist = 0.66
+		},
+		y_min = -15,
+		y_max = 25,
+		decoration = "herbs:psychoactive_mushroom",
+		spawn_by = "default:tree",
+		num_spawn_by = 1,
+	})
+end
+
+ --mapgen with biomes
  	minetest.register_decoration({
  		deco_type = "simple",
  		place_on = {"default:dirt_with_grass"},
  		sidelen = 16,
  		noise_params = {
- 			offset = 0,
+ 			offset = -0.9,
  			scale = 0.006,
  			spread = {x = 200, y = 200, z = 200},
- 			seed = 2,
+ 			seed = 71330,
  			octaves = 3,
  			persist = 0.66
  		},
@@ -93,18 +117,20 @@ minetest.register_node("herbs:psychoactive_mushroom", {
  		decoration = "herbs:psychoactive_mushroom",
  	})
  --end
+
  -- Mushroom spread and death
 
  minetest.register_abm({
  	label = "Mushroom spread",
  	nodenames = {"herbs:psychoactive_mushroom"},
  	interval = 11,
- 	chance = 50,
+ 	chance = 100,
  	action = function(pos, node)
- 	--[[	if minetest.get_node_light(pos, nil) == 15 then
+ 		if minetest.get_node_light(pos, nil) <= 14 then
  			minetest.remove_node(pos)
  			return
- 		end]]--
+ 		end
+
  		local random = {
  			x = pos.x + math.random(-2, 2),
  			y = pos.y + math.random(-1, 1),
@@ -128,3 +154,10 @@ minetest.register_node("herbs:psychoactive_mushroom", {
  		end
  	end
  })
+
+ local mg_name = minetest.get_mapgen_setting("mg_name")
+ if mg_name == "v6" then
+ 	flowers.register_mgv6_decorations()
+ else
+ 	flowers.register_decorations()
+ end
