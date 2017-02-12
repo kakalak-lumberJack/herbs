@@ -48,13 +48,16 @@ playereffects.register_effect_type("hallucination", "Hallucination", nil, {"visu
 local skin
 local size
 local collision
+local nametag
 
  playereffects.register_effect_type("invisibility", "Invisibility", nil, {"appearance"},
 	function(player)
 		skin = player:get_properties().textures
 		size = player:get_properties().visual_size
 		collision = player:get_properties().collisionbox
-		player:set_nametag_attributes({color = {a = 255, r = 255, g = 255, b  =255}})
+		nametag = player:get_nametag_attributes()
+		
+		player:set_nametag_attributes({color = {a = 0, r = 255, g = 255, b  =255}})
 		player:set_properties({
 			visual = "mesh",
 			textures = "invisible_skin.png",
@@ -63,7 +66,7 @@ local collision
 		})
 	end,
 		function(effects, player)
-			player:set_nametag_attributes({color = {a = 0, r = 255, g = 255, b = 255}})
+			player:set_nametag_attributes(nametag)
 			player:set_properties({
 				visual = "mesh",
 				textures = skin,
