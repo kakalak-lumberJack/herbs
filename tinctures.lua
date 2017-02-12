@@ -1,15 +1,40 @@
+--Add fast priv on drinking coffee
+
+minetest.override_item("farming:coffee_cup", {on_use = 
+	function(itemstack, user, pointed_thing)
+		playereffects.apply_effect_type("fast", 600, user)
+		local hp = user:get_hp()
+		user:set_hp(hp+2)
+		itemstack:take_item(1)
+		itemstack:add_item("farming:drinking_cup")
+		return itemstack
+	end,
+})
+
+minetest.override_item("farming:coffee_cup_hot", {on_use = 
+	function(itemstack, user, pointed_thing)
+		playereffects.apply_effect_type("fast", 600, user)
+		local hp = user:get_hp()
+		user:set_hp(hp+2)
+		itemstack:take_item(1)
+		itemstack:add_item("farming:drinking_cup")
+		return itemstack
+	end,
+})
+--register tinctures
+
 plants = {
-"violet",
+"viola",
 "geranium",
 "cactus",
-"dandelion",
+"dandelion_yellow",
 "tulip",
 "rose",
-"white_dandelion"
+"dandelion_white"
 }
 
 PLANTS = {
-"Violet",
+"Viola",
 "Geranium",
 "Cactus",
 "Dandelion",
@@ -19,25 +44,47 @@ PLANTS = {
 }
 
 effects = {
---increase mana
---give breath
---allow lava swimming
---anectdote
---poison
---increase hp
---invisibility
+"regenmana",--increase mana
+"breath",--give breath
+"high_speed",--increase player speed
+"antigravity",--antigravity
+"degen",--poison
+"regen",--increase hp
+"invisibility"--makes player invisible inspired by invisible mod
+}
+
+images = {
+"violet",
+"geranium",
+"cactus",
+"dandelion",
+"tulip",
+"rose",
+"white_dandelion"
+}
+
+sources = {
+"flowers:",
+"flowers:",
+"default:",
+"flowers:",
+"flowers:",
+"flowers:",
+"flowers:"
 }
 
 for number = 1,7 do
 
 	local plant = plants[number]
 	local PLANT = PLANTS[number]
-
-
+	local effect = effects[number]
+	local source = sources[number]
+	local image = images[number]
+	
 	minetest.register_node("herbs:"..plant.."_tincture", {
 		description = PLANT.." Tincture",
 		drawtype = "plantlike",
-		tiles = {plant.."_tincture.png"},
+		tiles = {image.."_tincture.png"},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
@@ -47,7 +94,21 @@ for number = 1,7 do
 			type = "fixed",
 			fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 		},
+		on_use = function(itemstack, user, pointed_thing)
+  			playereffects.apply_effect_type(effect, 30, user)
+			itemstack:take_item(1)
+			itemstack:add_item("vessels:glass_bottle")
+			return itemstack
+		end,
 	
-}) 
+	}) 
 
+	minetest.register_craft({
+		output = "herbs:"..plant.."_tincture",
+		recipe = {
+			{"farming:bottle_ethanol", source..plant, source..plant},
+			{source..plant, source..plant, source..plant},
+			{source..plant, source..plant, source..plant}
+		}
+	})
 end
