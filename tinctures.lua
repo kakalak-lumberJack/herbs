@@ -104,7 +104,7 @@ for number = 1,7 do
 	
 	}) 
 
-  if minetest.get_modpath("farming") ~= nil then
+  if minetest.get_modpath("farming") ~= nil and farming.mod == "redo" then
   	minetest.register_craft({
   		output = "herbs:"..plant.."_tincture",
   		recipe = {
