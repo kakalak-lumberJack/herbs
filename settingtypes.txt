@@ -1,0 +1,5 @@
+herbs_chats (Enable chats messages) bool true
+herbs_mortar (Enable mortar) bool true
+herbs_shroom (Enable shrooms) bool true
+herbs_tincures (Enable tinctures) bool true
+herbs_tincures_coffee (Enable coffee tincture) bool true

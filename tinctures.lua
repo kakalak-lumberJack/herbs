@@ -1,26 +1,27 @@
 --Add fast priv on drinking coffee
+minetest.setting_getbool("herbs_tincures_coffee") ~= false
+  minetest.override_item("farming:coffee_cup", {on_use = 
+  	function(itemstack, user, pointed_thing)
+  		playereffects.apply_effect_type("fast", 600, user)
+  		local hp = user:get_hp()
+  		user:set_hp(hp+2)
+  		itemstack:take_item(1)
+  		itemstack:add_item("farming:drinking_cup")
+  		return itemstack
+  	end,
+  })
 
-minetest.override_item("farming:coffee_cup", {on_use = 
-	function(itemstack, user, pointed_thing)
-		playereffects.apply_effect_type("fast", 600, user)
-		local hp = user:get_hp()
-		user:set_hp(hp+2)
-		itemstack:take_item(1)
-		itemstack:add_item("farming:drinking_cup")
-		return itemstack
-	end,
-})
-
-minetest.override_item("farming:coffee_cup_hot", {on_use = 
-	function(itemstack, user, pointed_thing)
-		playereffects.apply_effect_type("fast", 600, user)
-		local hp = user:get_hp()
-		user:set_hp(hp+2)
-		itemstack:take_item(1)
-		itemstack:add_item("farming:drinking_cup")
-		return itemstack
-	end,
-})
+  minetest.override_item("farming:coffee_cup_hot", {on_use = 
+  	function(itemstack, user, pointed_thing)
+  		playereffects.apply_effect_type("fast", 600, user)
+  		local hp = user:get_hp()
+  		user:set_hp(hp+2)
+  		itemstack:take_item(1)
+  		itemstack:add_item("farming:drinking_cup")
+  		return itemstack
+  	end,
+  })
+end
 --register tinctures
 
 plants = {
