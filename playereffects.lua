@@ -133,17 +133,19 @@ playereffects.register_effect_type("fast", "Allows fast movement", nil, {"privs"
 )
 
 --add mana
-playereffects.register_effect_type("regenmana", "Regenerate Mana", nil, {"mana"},
-	function(player)
-		local name = player:get_player_name()
-		mana.setregen(name, 5)
-	end,
+if minetest.get_modpath("mana") ~= nil then
+  playereffects.register_effect_type("regenmana", "Regenerate Mana", nil, {"mana"},
+  	function(player)
+  		local name = player:get_player_name()
+  		mana.setregen(name, 5)
+  	end,
 	
-	function(effects, player)
-		local name = player:get_player_name()
-		mana.setregen(name, 1)
-	end
-)
+  	function(effects, player)
+  		local name = player:get_player_name()
+  		mana.setregen(name, 1)
+  	end
+  )
+end
 
 --antigravity
 playereffects.register_effect_type("antigravity", "Antigravity", nil, {"gravity"}, 

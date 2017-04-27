@@ -1,5 +1,5 @@
 --Add fast priv on drinking coffee
-minetest.setting_getbool("herbs_tincures_coffee") ~= false
+if minetest.get_modpath("farming") ~= nil and farming.mod == "redo" and minetest.setting_getbool("herbs_tincures_coffee") ~= false then
   minetest.override_item("farming:coffee_cup", {on_use = 
   	function(itemstack, user, pointed_thing)
   		playereffects.apply_effect_type("fast", 600, user)
@@ -104,12 +104,23 @@ for number = 1,7 do
 	
 	}) 
 
-	minetest.register_craft({
-		output = "herbs:"..plant.."_tincture",
-		recipe = {
-			{"farming:bottle_ethanol", source..plant, source..plant},
-			{source..plant, source..plant, source..plant},
-			{source..plant, source..plant, source..plant}
-		}
-	})
+  if minetest.get_modpath("farming") ~= nil then
+  	minetest.register_craft({
+  		output = "herbs:"..plant.."_tincture",
+  		recipe = {
+  			{"farming:bottle_ethanol", source..plant, source..plant},
+  			{source..plant, source..plant, source..plant},
+  			{source..plant, source..plant, source..plant}
+  		}
+  	})
+  else
+  	minetest.register_craft({
+  		output = "herbs:"..plant.."_tincture",
+  		recipe = {
+  			{"vessels:glass_bottle", source..plant, source..plant},
+  			{source..plant, source..plant, source..plant},
+  			{source..plant, source..plant, source..plant}
+  		}
+  	})
+  end
 end

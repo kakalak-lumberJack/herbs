@@ -8,7 +8,7 @@ if minetest.setting_getbool("herbs_mortar") ~= false then
   dofile(minetest.get_modpath("herbs").."/mortar.lua")
 end
 
-if minetest.get_modpath("farming") ~= nil and minetest.setting_getbool("herbs_tincures") ~= false then
+if minetest.setting_getbool("herbs_tincures") ~= false then
   dofile(minetest.get_modpath("herbs").."/tinctures.lua")
 end
 
