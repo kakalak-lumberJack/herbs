@@ -31,8 +31,8 @@ playereffects.register_effect_type("hallucination", "Hallucination", nil, {"visu
         end
         minetest.after(16, function()
           player:set_sky(nil, "skybox",
-          {"herb_skull_sky.png", "herb_skull_sky_z.png", "herb_skull_sky_z.png",
-        "herb_skull_sky_z.png", "herb_skull_sky_z.png",  "herb_skull_sky_z.png"})
+          {"herbs_skull_sky.png", "herbs_skull_sky_z.png", "herbs_skull_sky_z.png",
+        "herbs_skull_sky_z.png", "herbs_skull_sky_z.png",  "herbs_skull_sky_z.png"})
           hrt = player:get_hp()
           player:set_hp(hrt-1)
         end)

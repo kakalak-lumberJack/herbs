@@ -85,7 +85,7 @@ for number = 1,7 do
 	minetest.register_node("herbs:"..plant.."_tincture", {
 		description = PLANT.." Tincture",
 		drawtype = "plantlike",
-		tiles = {image.."_tincture.png"},
+		tiles = {"herbs_"..image.."_tincture.png"},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
