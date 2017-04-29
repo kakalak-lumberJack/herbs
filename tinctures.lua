@@ -96,7 +96,8 @@ for number = 1,7 do
 			fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 		},
 		on_use = function(itemstack, user, pointed_thing)
-  			playereffects.apply_effect_type(effect, 30, user)
+      minetest.sound_play("herbs_tincture", {to_player = name, gain = 1.0,})
+  		playereffects.apply_effect_type(effect, 30, user)
 			itemstack:take_item(1)
 			itemstack:add_item("vessels:glass_bottle")
 			return itemstack
@@ -124,3 +125,5 @@ for number = 1,7 do
   	})
   end
 end
+
+if minetest.get_modpath("mana") == nil and mana == nil then minetest.unregister_item("herbs:viola_tincture") end
