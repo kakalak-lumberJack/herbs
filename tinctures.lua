@@ -1,6 +1,6 @@
 --Add fast priv on drinking coffee
-if minetest.get_modpath("farming") ~= nil and farming.mod == "redo" and minetest.setting_getbool("herbs_tincures_coffee") ~= false then
-  minetest.override_item("farming:coffee_cup", {on_use = 
+if minetest.get_modpath("farming") ~= nil and farming.mod == "redo" and minetest.settings:get_bool("herbs_tincures_coffee") ~= false then
+  minetest.override_item("farming:coffee_cup", {on_use =
   	function(itemstack, user, pointed_thing)
   		playereffects.apply_effect_type("fast", 600, user)
   		local hp = user:get_hp()
@@ -11,7 +11,7 @@ if minetest.get_modpath("farming") ~= nil and farming.mod == "redo" and minetest
   	end,
   })
 
-  minetest.override_item("farming:coffee_cup_hot", {on_use = 
+  minetest.override_item("farming:coffee_cup_hot", {on_use =
   	function(itemstack, user, pointed_thing)
   		playereffects.apply_effect_type("fast", 600, user)
   		local hp = user:get_hp()
@@ -81,7 +81,7 @@ for number = 1,7 do
 	local effect = effects[number]
 	local source = sources[number]
 	local image = images[number]
-	
+
 	minetest.register_node("herbs:"..plant.."_tincture", {
 		description = PLANT.." Tincture",
 		drawtype = "plantlike",
@@ -102,8 +102,8 @@ for number = 1,7 do
 			itemstack:add_item("vessels:glass_bottle")
 			return itemstack
 		end,
-	
-	}) 
+
+	})
 
   if minetest.get_modpath("farming") ~= nil and farming.mod == "redo" then
   	minetest.register_craft({
