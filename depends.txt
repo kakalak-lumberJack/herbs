@@ -1,5 +1,6 @@
 default
 flowers
 playereffects
+player_monoids?
 farming?
 mana?

@@ -1,11 +1,7 @@
 
 --register player effects
 
-if minetest.get_modpath("player_monoids") then
-  local monoids = true
-else
-  local monoids = false
-end
+if minetest.get_modpath("player_monoids") ~=nil then local monoids = true end
 
 --hallucination
 playereffects.register_effect_type("hallucination", "Hallucination", nil, {"visual"},
@@ -92,7 +88,7 @@ playereffects.register_effect_type("high_speed", "High speed", nil, {"speed"},
     if monoids then
       player_monoids.speed:add_change(player, 6, "herbs:high_speed")
     else
-      player:set_physics_override(6,nil,nil)
+      minetest.chat_send_all("Override herbs")
     end
 	end,
 	function(effect, player)
