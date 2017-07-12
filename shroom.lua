@@ -2,6 +2,7 @@
 --register mushroom
 minetest.register_node("herbs:psychoactive_mushroom", {
     description = "Psychoactive Mushroom",
+    inventory_image = "herbs_psychoactive_mushroom.png",
     tiles = {"herbs_psychoactive_mushroom.png"},
     drawtype = "plantlike",
     paramtype = "light",

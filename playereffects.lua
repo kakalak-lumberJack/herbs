@@ -1,6 +1,12 @@
 
 --register player effects
 
+if not minetest.get_modpath("player_monoids") then
+  local monoids = false
+else
+  local monoids = true
+end
+
 --hallucination
 playereffects.register_effect_type("hallucination", "Hallucination", nil, {"visual"},
       function(player)
@@ -56,7 +62,7 @@ local nametag
 		size = player:get_properties().visual_size
 		collision = player:get_properties().collisionbox
 		nametag = player:get_nametag_attributes()
-		
+
 		player:set_nametag_attributes({color = {a = 0, r = 255, g = 255, b  =255}})
 		player:set_properties({
 			visual = "mesh",
@@ -80,16 +86,25 @@ local nametag
 
 --Speed effects group
 -- Makes the user faster
-playereffects.register_effect_type("high_speed", "High speed", nil, {"speed"}, 
+
+playereffects.register_effect_type("high_speed", "High speed", nil, {"speed"},
 	function(player)
-		player:set_physics_override(6,nil,nil)
+    if monoids then
+      player_monoids.speed:add_change(player, 6, "herbs:high_speed")
+    else
+      player:set_physics_override(6,nil,nil)
+    end
 	end,
-	
 	function(effect, player)
-		player:set_physics_override(1,nil,nil)
-	end
+    if monoids then
+	    player_monoids.speed:del_change(player, "herbs:high_speed")
+    else
+      player:set_physics_override(1,nil,nil)
+    end
+	end,
+	false
 )
- 
+
 -- Adds the fast privilege Keep the privilege even if the player dies
 playereffects.register_effect_type("fast", "Allows fast movement", nil, {"privs"},
 	function(player)
@@ -106,7 +121,7 @@ playereffects.register_effect_type("fast", "Allows fast movement", nil, {"privs"
 	false, -- not hidden
 	false  -- do NOT cancel the effect on death
 )
- 
+
  --regen (antidote)
  playereffects.register_effect_type("regen", "Regeneration", "heart.png", {"health"},
 	function(player)
@@ -124,7 +139,7 @@ playereffects.register_effect_type("fast", "Allows fast movement", nil, {"privs"
 )
 
  --Slows loss of breath underwater
- 
+
  playereffects.register_effect_type("breath", "Breath", nil, {"breath"},
 	function(player)
 		player:set_breath(player:get_breath()+1)
@@ -139,7 +154,7 @@ if minetest.get_modpath("mana") ~= nil then
   		local name = player:get_player_name()
   		mana.setregen(name, 5)
   	end,
-	
+
   	function(effects, player)
   		local name = player:get_player_name()
   		mana.setregen(name, 1)
@@ -148,13 +163,12 @@ if minetest.get_modpath("mana") ~= nil then
 end
 
 --antigravity
-playereffects.register_effect_type("antigravity", "Antigravity", nil, {"gravity"}, 
+playereffects.register_effect_type("antigravity", "Antigravity", nil, {"gravity"},
 	function(player)
-		player:set_physics_override(nil,nil,.25)
+    player:set_physics_override({gravity = .25})
 	end,
-	
+
 	function(effect, player)
-		player:set_physics_override(nil,nil,1)
+    player:set_physics_override({gravity = 1})
 	end
 )
-
