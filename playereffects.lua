@@ -1,10 +1,10 @@
 
 --register player effects
 
-if not minetest.get_modpath("player_monoids") then
-  local monoids = false
-else
+if minetest.get_modpath("player_monoids") then
   local monoids = true
+else
+  local monoids = false
 end
 
 --hallucination
