@@ -87,9 +87,9 @@ local nametag
 playereffects.register_effect_type("high_speed", "High speed", nil, {"speed"},
 	function(player)
     if monoids then
-      player_monoids.speed:add_change(player, 6, "herbs:high_speed")
+      player_monoids.speed:add_change(player, 3, "herbs:high_speed")
     else
-      player:set_physics_override(6,nil,nil)
+      player:set_physics_override(3,nil,nil)
     end
 	end,
 	function(effect, player)
