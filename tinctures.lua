@@ -87,7 +87,7 @@ for number = 1,7 do
     inventory_image = "herbs_"..image.."_tincture.png",
     wield_image = "herbs_"..image.."_tincture.png",
 		drawtype = "plantlike",
-		tiles = "herbs_"..image.."_tincture.png",
+		tiles = {"herbs_"..image.."_tincture.png"},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
@@ -97,6 +97,7 @@ for number = 1,7 do
 			type = "fixed",
 			fixed = {-0.25, -0.5, -0.25, 0.25, 0.3, 0.25}
 		},
+    stack_max = 16,
 		on_use = function(itemstack, user, pointed_thing)
       minetest.sound_play("herbs_tincture", {to_player = name, gain = 1.0,})
   		playereffects.apply_effect_type(effect, 30, user)
